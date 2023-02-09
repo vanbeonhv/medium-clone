@@ -1,7 +1,7 @@
 {
   "watch": [
-    "react"
+    "src"
   ],
   "ext": "ts",
-  "exec": "IS_IT_NODE=true ts-node -r tsconfig-paths/register src/main.ts"
+  "exec": "IS_TS_NODE=true ts-node -r tsconfig-paths/register src/main.ts"
 }
