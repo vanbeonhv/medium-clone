@@ -7,8 +7,10 @@ const ormconfig: PostgresConnectionOptions = {
   username: 'mediumclone',
   password: 'xxx',
   database: 'mediumclone',
-  entities: [__dirname + '/**/*.entity{.ts,.js}'],
+  entities: [__dirname + '/src/**/*.entity{.ts,.js}'],
   synchronize: false,
-  migrations: [__dirname + '/migrations/**/*.{ts,.js}'],
+  migrations: [__dirname + '/src/migrations/*.{ts,.js}'],
 };
+console.log(__dirname + '/src/**/*.entity{.ts,.js}');
+console.log(__dirname + '/src/migrations/*.{ts,.js}');
 export default ormconfig;
