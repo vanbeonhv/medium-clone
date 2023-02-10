@@ -11,10 +11,14 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
-    "paths": {
-      "@app/": [
-        "./src/*"
-      ]
-    }
-  }
+    // "paths": {
+    //   "@app/": [
+    //     "./src/*"
+    //   ]
+    // }
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/migrations/**/*.ts"
+  ]
 }
