@@ -22,6 +22,10 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnSave": true
+  "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
+  "editor.formatOnPaste": false, // required 
+  "editor.formatOnType": false, // required
+  "editor.formatOnSave": true, // optional 
+  "editor.formatOnSaveMode": "file", // required to format on save
+  "files.autoSave": "onFocusChange" // optional but recommended
 }

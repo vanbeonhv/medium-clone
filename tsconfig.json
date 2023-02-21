@@ -19,6 +19,7 @@
   },
   "include": [
     "src/**/*.ts",
-    "src/migrations/**/*.ts"
+    "src/migrations/**/*.ts",
+    "test/*.ts",
   ]
 }

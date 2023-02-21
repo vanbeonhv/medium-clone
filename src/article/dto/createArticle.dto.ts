@@ -15,5 +15,6 @@ export class CreateArticleDto {
   @IsNotEmpty()
   tagList: string
 
-
+  @IsNotEmpty()
+  authorId: number
 }
