@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { IsNotEmpty } from 'class-validator';
 
 @Injectable()
-export class ArticleDto {
+export class CreateArticleDto {
   @IsNotEmpty()
   title: string
 
