@@ -55,7 +55,6 @@ export class UserService {
       where: { email: loginDto.email },
       select: ['id', 'email', 'username', 'bio', 'image', 'password'],
     });
-    console.log(userByEmail);
     if (!userByEmail) {
       throw new HttpException(
         'Invalid login info',
@@ -74,6 +73,9 @@ export class UserService {
       );
     }
     delete userByEmail.password;
+    const token = this.generateJwt(userByEmail);
+    userByEmail.token = token;
+    this.userRepository.save(userByEmail)
     return userByEmail;
   }
   async updateUser(currentUserId: number, updateUserDto: UpdateUserDto): Promise<UserEntity> {

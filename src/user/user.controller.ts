@@ -33,7 +33,6 @@ export class UserController {
   ): Promise<UserResponseInterface> {
     const user = await this.userService.createUser(createUserDto);
     const userInfo = this.userService.buildUserResponse(user);
-    console.log(userInfo);
     return userInfo;
   }
 
