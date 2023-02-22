@@ -10,14 +10,19 @@ import { AuthMiddleware } from './user/middelware/auth.middleware';
 import { ArticleModule } from './article/article.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(ormconfig), TagModule, UserModule, ArticleModule],
-  controllers: [AppController],
-  providers: [AppService],
+    imports: [
+        TypeOrmModule.forRoot(ormconfig),
+        TagModule,
+        UserModule,
+        ArticleModule,
+    ],
+    controllers: [AppController],
+    providers: [AppService],
 })
 export class AppModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(AuthMiddleware)
-      .forRoutes({ path: '*', method: RequestMethod.ALL });
-  }
+    configure(consumer: MiddlewareConsumer) {
+        consumer
+            .apply(AuthMiddleware)
+            .forRoutes({ path: '*', method: RequestMethod.ALL });
+    }
 }

@@ -1,31 +1,31 @@
 {
   "workbench.colorCustomizations": {
-    "activityBar.activeBackground": "#256c4d",
-    "activityBar.background": "#256c4d",
+    "activityBar.activeBackground": "#339269",
+    "activityBar.background": "#339269",
     "activityBar.foreground": "#e7e7e7",
     "activityBar.inactiveForeground": "#e7e7e799",
-    "activityBarBadge.background": "#44215f",
-    "activityBarBadge.foreground": "#e7e7e7",
+    "activityBarBadge.background": "#d2b8e6",
+    "activityBarBadge.foreground": "#15202b",
     "commandCenter.border": "#e7e7e799",
-    "sash.hoverBorder": "#256c4d",
-    "statusBar.background": "#184632",
+    "sash.hoverBorder": "#339269",
+    "statusBar.background": "#266c4e",
     "statusBar.foreground": "#e7e7e7",
-    "statusBarItem.hoverBackground": "#256c4d",
-    "statusBarItem.remoteBackground": "#184632",
+    "statusBarItem.hoverBackground": "#339269",
+    "statusBarItem.remoteBackground": "#266c4e",
     "statusBarItem.remoteForeground": "#e7e7e7",
-    "titleBar.activeBackground": "#184632",
+    "titleBar.activeBackground": "#266c4e",
     "titleBar.activeForeground": "#e7e7e7",
-    "titleBar.inactiveBackground": "#18463299",
+    "titleBar.inactiveBackground": "#266c4e99",
     "titleBar.inactiveForeground": "#e7e7e799"
   },
-  "peacock.remoteColor": "#184632",
+  "peacock.remoteColor": "#266c4e",
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnPaste": false, // required 
   "editor.formatOnType": false, // required
-  "editor.formatOnSave": true, // optional 
+  "editor.formatOnSave": false, // optional 
   "editor.formatOnSaveMode": "file", // required to format on save
   "files.autoSave": "onFocusChange" // optional but recommended
 }

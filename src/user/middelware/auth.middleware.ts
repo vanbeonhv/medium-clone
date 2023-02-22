@@ -7,21 +7,21 @@ import { UserService } from '../user.service';
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
-  constructor(private readonly userService: UserService) { }
-  async use(req: ExpressRequest, _: Response, next: NextFunction) {
-    if (!req.headers.authorization) {
-      req.user = null;
-    } else {
-      const token: string = req.headers.authorization.split(' ')[1];
+    constructor(private readonly userService: UserService) {}
+    async use(req: ExpressRequest, _: Response, next: NextFunction) {
+        if (!req.headers.authorization) {
+            req.user = null;
+        } else {
+            const token: string = req.headers.authorization.split(' ')[1];
 
-      try {
-        const decode = verify(token, JWT_SECRET);
-        const user = await this.userService.findById(decode.id);
-        req.user = user;
-      } catch (err) {
-        req.user = null;
-      }
+            try {
+                const decode = verify(token, JWT_SECRET);
+                const user = await this.userService.findById(decode.id);
+                req.user = user;
+            } catch (err) {
+                req.user = null;
+            }
+        }
+        next();
     }
-    next();
-  }
 }

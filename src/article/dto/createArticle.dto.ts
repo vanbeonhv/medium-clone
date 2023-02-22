@@ -3,18 +3,15 @@ import { IsNotEmpty } from 'class-validator';
 
 @Injectable()
 export class CreateArticleDto {
-  @IsNotEmpty()
-  title: string
+    @IsNotEmpty()
+    title: string;
 
-  @IsNotEmpty()
-  description: string
+    @IsNotEmpty()
+    description: string;
 
-  @IsNotEmpty()
-  body: string
+    @IsNotEmpty()
+    body: string;
 
-  @IsNotEmpty()
-  tagList: string
-
-  @IsNotEmpty()
-  authorId: number
+    @IsNotEmpty()
+    tagList: string;
 }
