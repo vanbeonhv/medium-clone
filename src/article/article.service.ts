@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import slugify from 'slugify';
 import { UserEntity } from 'src/user/user.entity';
-import { DataSource, DeleteResult, QueryBuilder, Repository } from 'typeorm';
+import { DataSource, DeleteResult, Repository } from 'typeorm';
 import { ArticleEntity } from './article.entity';
 import { CreateArticleDto } from './dto/createArticle.dto';
 import { ArticleResponseInterface } from './types/articleResponse.interface';
@@ -13,6 +13,8 @@ export class ArticleService {
     constructor(
         @InjectRepository(ArticleEntity)
         private readonly articleRepository: Repository<ArticleEntity>,
+        @InjectRepository(UserEntity)
+        private readonly userRepository: Repository<UserEntity>,
         private dataSource: DataSource,
     ) {}
 
@@ -109,13 +111,58 @@ export class ArticleService {
     ): Promise<ArticlesResponseInterface> {
         const queryBuilder = this.dataSource
             .getRepository(ArticleEntity)
-            .createQueryBuilder('article') //name of table is article
+            .createQueryBuilder('articles') //name of table is article
             .leftJoinAndSelect('articles.author', 'author'); // Chua hieu
-        const articles = await queryBuilder.getMany();
         const articlesCount = await queryBuilder.getCount();
+        // Tu doan nay la ko hieu queryBuilder lam
+        if (query.tag) {
+            queryBuilder.andWhere('articles.tagList LIKE :tag', {
+                tag: `%{query.tag}%`,
+            });
+        }
+
+        if (query.author) {
+            const author = await this.userRepository.findOne({
+                where: { username: query.author },
+            });
+            queryBuilder.andWhere('articles.authorId = :id', { id: author.id });
+        }
+        queryBuilder.orderBy('articles.createdAt', 'ASC');
+
+        if (query.limit) {
+            queryBuilder.limit(query.limit);
+        }
+        if (query.offset) {
+            queryBuilder.offset(query.offset);
+        }
+        const articles = await queryBuilder.getMany();
         return { articles, articlesCount };
     }
 
+    async addArticleToFavourites(
+        currentUserId: number,
+        slug: string,
+    ): Promise<ArticleEntity> {
+        const article = await this.getArticleBySlug(slug);
+        const user = await this.userRepository.findOne({
+            where: { id: currentUserId },
+            relations: ['favourites'],
+        });
+        //Tim trong dong article ma User nay like co cai auticle hien tai dang truy van ko
+        const isNotFavourite =
+            user.favourites.findIndex(
+                (articleInFavourite) => articleInFavourite.id === article.id,
+            ) === -1;
+        console.log('user', user);
+
+        if (isNotFavourite) {
+            user.favourites.push(article);
+            article.favouritesCount++;
+            await this.userRepository.save(user);
+            await this.articleRepository.save(article);
+        }
+        return article;
+    }
     async buildArticleResponse(
         article: ArticleEntity,
     ): Promise<ArticleResponseInterface> {
