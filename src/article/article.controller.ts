@@ -86,11 +86,24 @@ export class ArticleController {
 
     @Post(':slug/favourite')
     @UseGuards(AuthGuard)
-    async getFavourite(
+    async addArticleToFavourites(
         @User('id') currentUserId: number,
         @Param('slug') slug: string,
     ): Promise<ArticleResponseInterface> {
         const article = await this.articleService.addArticleToFavourites(
+            currentUserId,
+            slug,
+        );
+        return await this.articleService.buildArticleResponse(article);
+    }
+
+    @Delete(':slug/favourite')
+    @UseGuards(AuthGuard)
+    async removeArticleFromFavourites(
+        @User('id') currentUserId: number,
+        @Param('slug') slug: string,
+    ): Promise<ArticleResponseInterface> {
+        const article = await this.articleService.removeArticleFromFavourites(
             currentUserId,
             slug,
         );
